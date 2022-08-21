@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+    <script src="./js/apiConfig.js"></script>
+    <script src="./js/dishSource.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/vue@next/dist/vue.global.js"></script>
+    
+    <script> // Babel generates calls to React.createElement by default, so we redefine that: 
+        const React={createElement:Vue.h};
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- <div id="sidebarView"></div> -->
+    <div id="app"></div>
+
+    <!-- test1 -->
+    <!-- <script>
+        // python -m http.server
+
+        DishSource.apiCall("/recipes/quickAnswer?"+new URLSearchParams({q:"How much vitamin C is in an apple?"}))  
+        .then(data=> console.log(data))
+
+        DishSource.apiCall("/BlablaWrongEndpoint") .then(data=> console.log(data)).catch(error=> console.log("there was a problem", error))
+        
+        DishSource.searchDishes({type:"main course"}).then(console.log).catch(console.error)
+        DishSource.searchDishes({type:"main course", Query:"chicken"}).then(console.log).catch(console.error)
+
+        DishSource.getDishDetails(547775).then(console.log).catch(console.error)
+        DishSource.getDishDetails(321654).then(console.log).catch(console.error)
+
+    </script> -->
+    <!-- <script src="./js/views/SearchResultsView.js" type="text/jsx"></script> -->
+    <!-- test2 -->
+    <!-- <script type="text/jsx">
+        DishSource.searchDishes({query:'pizza'}).then(results=>
+         Vue.render(<SearchResultsView searchResults={results} dishChosen={id=> console.log("The user chose dish ", id)} />, document.getElementById("app")));
+    </script> -->
+
+    <script src="./js/views/searchView.js" type="text/jsx"></script>
+    <!-- <script type="text/jsx">
+        const query = 'pizza'
+        const type=''
+        Vue.render(<SearchFormView  query={query} options={["starter", "main course", "dessert"]}  onSearch={()=>console.log("User wants to search!")} onText={txt=>this.query=txt} onDishType={dishType=>this.type=dishType}/>, document.getElementById("app"))
+        DishSource.searchDishes({query:'pizza'}).then(results=> Vue.render(<div>
+            <SearchFormView  query={query} options={["starter", "main course", "dessert"]}  onSearch={()=>console.log("User wants to search!")} onText={txt=>this.query=txt} onDishType={dishType=>this.type=dishType}/>
+            <SearchResultsView searchResults={results} dishChosen={id=> console.log("The user chose dish ", id) }  />
+        </div>, document.getElementById("app")));
+    </script> -->
+
+
+    <!-- test3 -->
+    <script src="./js/views/sidebarView.js"  type="text/jsx"></script>
+    <!-- <script type="text/jsx">
+        Promise.all(  [DishSource.getDishDetails(547775),  
+        DishSource.getDishDetails(492561), 
+        DishSource.getDishDetails(492560)])
+                    .then(values=> {
+                        Vue.render(<SidebarView guests={5}  dishes={values}  removeDish={id=> console.log("user wants to remove dish with ID ", id)}  dishChoice={id=> console.log("user wants details of dish with ID ", id)} />, document.getElementById("app"))
+                    })
+    </script> -->
+    <!-- <script  type="text/jsx">
+        Promise.all(  [DishSource.getDishDetails(547775),  
+        DishSource.getDishDetails(492561), 
+        DishSource.getDishDetails(492560)])
+                    .then(values=> {
+                        const SidebarViewState = {
+           
+                            data(){ return /* another object literal */ {
+                                number:5,
+                            }; },  
+                            render(){  
+                                return <SidebarView guests={this.number} setGuests={x=>this.number=x}  dishes={values}  removeDish={id=> console.log("user wants to remove dish with ID ", id)}  dishChoice={id=> console.log("user wants details of dish with ID ", id)} />
+                            }
+                
+                        }
+                        Vue.render(<SidebarViewState />, document.getElementById("app"))
+                    })
+    </script> -->
+    
+    <script src="./js/views/DetailsView.js"  type="text/jsx"></script> 
+    <!-- test4 -->
+    <!-- <script  type="text/jsx">
+        DishSource.getDishDetails(547775).then(details=> 
+            Vue.render(<DetailsView dish={details} people={3} isDishInMenu={false}  
+                dishAdded={()=>console.log("User wants to add this dish! ", details)} />, document.getElementById("app"))
+        );
+    </script> -->
+
+    
+    
+    <!-- <script  type="text/jsx">
+        const SidebarViewState = {
+           
+            data(){ return /* another object literal */ {number:5}; },  
+            render(){  
+                return <SidebarView dishes={props.dishes} guests={this.number}  setGuests={x=>this.number=x}  />; }};
+        const renderDetail = function(id, isDishInMenu){
+            DishSource.getDishDetails(id)
+            .then(details=>{
+                details = {
+                    id,
+                    title: details.title,
+                    pricePerServing: details.pricePerServing,
+                    image: details.image,
+                    dishTypes: [...details.dishTypes],
+                    analyzedInstructions: [{
+                        steps: details && details.analyzedInstructions&&details.analyzedInstructions[0]?details.analyzedInstructions[0].steps:[]
+                    }],
+                    extendedIngredients: details.extendedIngredients.map(item=>{
+                        return {
+                            name: item.name,
+                            aisle: item.aisle,
+                            quantity: item.measures.metric.amount +  item.measures.metric.unitShort
+                        }
+                        
+                    })
+                }
+                Vue.render(<DetailsView dish={details} people={3} isDishInMenu={isDishInMenu}  dishAdded={()=>console.log("User wants to add this dish! ", details)} />, document.getElementById("app"));
+            })
+
+        }
+        Promise.all(  [DishSource.getDishDetails(547775),  
+        DishSource.getDishDetails(492561), 
+        DishSource.getDishDetails(492560)])
+                    .then(values=> {
+                        Vue.render(<SidebarView dishChoice={id=>renderDetail(id,true)} removeDish={id=> console.log("user wants to remove dish with ID ", id)} dishes={values} guests={5}  setGuests={x=>console.log}  />, document.getElementById("app"))
+                    })
+    </script> -->
+    
+
+    <!-- test 5 -->
+    <script src="./js/views/summaryView.js" type="text/jsx"></script>
+    <!-- <script type="text/jsx">
+        Promise.all( [DishSource.getDishDetails(547775),  
+            DishSource.getDishDetails(492561), 
+            DishSource.getDishDetails(492560)
+        ]).then(values=> Vue.render( <SummaryView persons={5}  currentDish={values} />, document.getElementById("app")))
+    </script> -->
+    
+    <script src="./vuejs/sidebarPresenter.js" type="text/jsx"></script>
+    <script src="./vuejs/summaryPresenter.js" type="text/jsx"></script>
+    <script src="./js/app.js" type="text/jsx"></script>
+    <script src="./js/DinnerModel.js" type="text/jsx"></script>
+    <!-- <script type="text/jsx">
+   
+      const myModel=new DinnerModel(3); 
+      const TopLevelModel= {
+          data(){ return  {model: myModel}; }, 
+          render(){  return <App model={this.model} />; }
+      };
+      Promise.all(
+          [DishSource.getDishDetails(523145), 
+          DishSource.getDishDetails(787321),
+          DishSource.getDishDetails(452179)]
+          ).then(function(values){ 
+          values.map(d=>myModel.addToMenu(d));   // add the dishes to the model
+          Vue.render(<TopLevelModel />, document.getElementById("app"));
+          }); -->
+
+
+ <!-- <script type="text/jsx">
+        Promise.all(  [DishSource.getDishDetails(552767),  
+        DishSource.getDishDetails(185005), 
+        DishSource.getDishDetails(586940)])
+                    .then(values=> {
+                        Vue.render(<SidebarView guests={5}  dishes={values}  removeDish={id=> console.log("user wants to remove dish with ID ", id)}  dishChoice={id=> console.log("user wants details of dish with ID ", id)} />, document.getElementById("app"))
+                    })
+     
+
+
+    </script> -->
+    
+    <!-- <script  type="text/jsx">
+        Promise.all(  [DishSource.getDishDetails(547775),  
+        DishSource.getDishDetails(492561), 
+        DishSource.getDishDetails(492560)])
+                    .then(values=> {
+                        const SidebarViewState = {
+           
+                            data(){ return /* another object literal */ {
+                                number:5,
+                            }; },  
+                            render(){  
+                                return <SidebarView guests={this.number} setGuests={x=>this.number=x}  dishes={values}  removeDish={id=> console.log("user wants to remove dish with ID ", id)}  dishChoice={id=> console.log("user wants details of dish with ID ", id)} />
+                            }
+                
+                        }
+                        Vue.render(<SidebarViewState />, document.getElementById("app"))
+                    })
+    </script> -->
+    
+    <script type="text/jsx">
+        //const myModel=new DinnerModel(5);
+        const TopLevelModel= {  
+            data(){ 
+                return {
+                    model: new DinnerModel(5)
+                }
+            },  
+            render(){ return <App model={this.model} /> },
+            created(){
+                Promise.all( 
+                    [DishSource.getDishDetails(547775),  
+                        DishSource.getDishDetails(492561), 
+                        DishSource.getDishDetails(492560)]
+                ).then(values=> values.map(d=>this.model.addToMenu(d))) 
+                .then(()=> { 
+                    this.model.removeFromMenu({id:492561}); 
+                    //console.log(myModel); 
+                    // console.log(this.model)
+                })
+            }
+        };
+        Vue.render(<TopLevelModel />, document.getElementById("app"));
+       
+            
+    </script>
+    
+    <!-- <script type="text/jsx">
+        Promise.all(
+             [DishSource.getDishDetails(547775), 
+             DishSource.getDishDetails(492561),
+             DishSource.getDishDetails(492560)]
+        ).then(values=> Vue.render(
+            <SummaryView persons={5} 
+            ingredients={getIngredients(values)} />
+                        
+                          , document.getElementById("app")))
+        </script>        -->
+
+
+</body>
+</html>

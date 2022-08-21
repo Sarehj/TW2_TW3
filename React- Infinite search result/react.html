@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<!--<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>-->
+
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+<script src="js/apiConfig.js"></script>
+<script src="js/dishSource.js"></script>
+</head>
+<body>
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-database.js"></script>
+<script src="js/firebaseConfig.js"></script>
+<script src="js/firebaseModel.js"></script>
+
+<script src="js/useIntersection.js" type="text/jsx"></script>
+
+
+<div id="app"></div>
+
+
+</body>
+
+<script src="js/dinnerModel.js" type="text/jsx"></script>
+<script type="text/jsx" src="js/views/searchView.js"></script>
+<script type="text/jsx" src="js/views/sidebarView.js"></script>
+<script type="text/jsx" src="js/views/detailsView.js"></script>
+<script type="text/jsx" src="js/views/summaryView.js"></script>
+<script type="text/jsx" src="js/views/promiseNoData.js"></script>
+
+<script type="text/jsx" src="reactjs/sidebarPresenter.js"></script>
+<script type="text/jsx" src="reactjs/summaryPresenter.js"></script>
+<script type="text/jsx" src="reactjs/detailsPresenter.js"></script>
+<script type="text/jsx" src="reactjs/searchPresenter.js"></script>
+<script type="text/jsx" src="reactjs/show.js"></script>
+
+<script type="text/jsx" src="js/app.js"></script>
+
+
+<script type="text/jsx">
+
+        const myModel=new DinnerModel(); 
+        persistModel(myModel);
+        firebase.database().ref(DB_REF).once("value").then( ()=>ReactDOM.render(<App model={myModel}/>, document.getElementById("app")));
+        
+
+</script>   
+
+<!-- persistModel(myModel);
+  Promise.all(
+        [DishSource.getDishDetails(523145), 
+        DishSource.getDishDetails(787321),
+        DishSource.getDishDetails(452179)]
+).then(function(values){ 
+        values.map(d=>myModel.addToMenu(d));   // add the dishes to the model
+        ReactDOM.render(<App model={myModel}/>, document.getElementById("app1"));
+        });
+ReactDOM.render(<div><SearchTest/><DetailsTest/></div>, document.getElementById("app1"));     
+const searchPromise= DishSource.searchDishes({type:"main course", query:"pasta" });
+
+function SearchTest(){
+        const [stateResults, setStateResults]= React.useState(null);
+        const [stateError, setStateError]= React.useState(null);
+        //const [promise, setPromise]= React.useState(null);     
+        React.useEffect(function(){ 
+                searchPromise.then(results=>setStateResults(results)).catch(error=>setStateError(error))
+            }, []);
+         
+        return PromiseNoData(searchPromise, stateResults, stateError) || <SearchResultsView searchResults={stateResults} dishChosen={id=> console.log("The user chose dish ", id)}/>;
+}
+
+function DetailsTest(){
+        const [stateDetails, setStateDetails]= React.useState(null);
+        const [stateError, setStateError]= React.useState(null);
+        const [promise, setPromise]= React.useState(DishSource.getDishDetails(547775).then(details=>setStateDetails(details)).catch(error=>setStateError(error)));     
+        return PromiseNoData(promise, stateDetails, stateError) ||<DetailsView dish={stateDetails} people={4} isDishInMenu={false} dishAdded={()=>console.log("User wants to add this dish! ", stateDetails)}/>;
+}
+          
+-->
+
+
+<!--
+
+        const myModel= new DinnerModel();
+
+        Promise.all(
+                [DishSource.getDishDetails(523145), 
+                DishSource.getDishDetails(787321),
+                DishSource.getDishDetails(452179)]
+           ).then(values=> 
+           ReactDOM.render(<App values={values} model={myModel}/>
+                , document.getElementById("app1")))
+      
+523145, 787321, 452179
+548321, 758118, 1152690
+1445969, 1529625, 32104
+
+<script type="text/jsx">
+    Promise.all(
+        [DishSource.getDishDetails(523145), 
+        DishSource.getDishDetails(787321),
+        DishSource.getDishDetails(452179)]
+   ).then(values=> 
+   ReactDOM.render(<SidebarView  
+        dishes={values}
+        removeDish={id=> console.log("user wants to remove dish with ID ", id)}
+        dishChoice={id=> console.log("user wants details of dish with ID ", id)} />
+        , document.getElementById("app1")))
+Promise.all(
+        [DishSource.getDishDetails(523145), 
+        DishSource.getDishDetails(787321),
+        DishSource.getDishDetails(452179)]
+        ).then(values=> 
+        ReactDOM.render(<SummaryView  
+        persons={5} menu={values} />
+        , document.getElementById("app2")))-->
+</script>
+
+</html>

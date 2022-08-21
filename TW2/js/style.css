@@ -1,0 +1,264 @@
+/*
+*SearchView.js
+*/
+.searchView{
+    overflow-y: auto;
+    
+}
+
+#SearchfieldInSearchView{
+    padding:20px 20px 20px 20px;
+    
+}
+
+.searchResult{
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    vertical-align: top;
+    padding-bottom: 15px;
+    padding-right: 4px;
+    padding-left: 4px; 
+    margin-left:10px;
+    margin-right: 10px;
+    justify-content: space-between;
+}
+.picsInSearchResult{
+    cursor: pointer;
+}
+
+img{
+    height: 150px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid white;
+    padding: 2px;
+}
+
+#summaryButton{
+    cursor: pointer;
+    background-color: #2b545e;
+    color: white;
+    padding:10px 10px 10px 10px;
+    margin: 25px 40px;
+    /* float:left; */
+}
+#searchButton{
+    cursor: pointer;
+    background-color: #d9e5f5;
+    color: white;
+}
+
+
+/*
+* in SidebarView.js
+*/
+.table{
+    width:300px;
+    text-align: left;
+    font-weight: bolder;
+    color :  #d498d6;
+    padding:10px 10px 10px 0px;
+}
+.headerGuests{
+    font-size: 17px;
+}
+.headerDishes{
+    font-size: 17px;
+}
+.BG{
+    margin-left: 10px;
+}
+.BS:disabled{
+    background-color: gray;
+    color: white;
+}
+
+.BS{
+    cursor: pointer;
+    background-color: #c48db2;
+    color: white;
+}
+.ClickN{
+    /* cursor: pointer; */
+    font-size: 15px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+
+/*
+*DetailsView.js
+*/
+
+.detailView{
+    word-break:break-all;
+    padding-left:10px;
+    text-align: left;
+}
+.imgandprice{
+    display:flex;
+    flex-direction: row;
+    padding-left: 23px;
+}
+
+
+.priceguests{
+    vertical-align: top;
+    padding:20px;
+    margin: 25px;
+    background-color: #bbd7d8;
+    border-radius: 30px;
+}
+
+
+.addBtn{
+    cursor: pointer;
+    font-size: 15px;
+    padding:10px 24px;
+    width: 500px;
+    margin: 25px ;
+    margin-right: 10px;
+    float:right;
+    background-color: #88a7a2;
+    color: white; 
+}
+#addBtn:disabled{
+    
+    font-size: 15px;
+    padding:10px 24px;
+    float:right;
+    width: 250px;
+    margin-right: 10px;
+    background-color: gray;
+    color: white;
+}
+
+#cancel{
+    cursor: pointer;
+    font-size: 15px;
+    padding:10px 24px;
+    width: 250px;
+    margin: 25px 20px 0px 0px;
+    float:right;
+    background-color: #88a7a2;
+    color: white; 
+}
+
+#recipeInstruction{
+    padding:5px 30px 5px 23px;
+    background-color: white;
+    margin: 20px 0;
+    border: thick double #7ba8a1;
+}
+
+.summary{
+    padding:5px 30px 5px 23px;
+    background-color: white;
+    margin: 20px 0;
+    border: thick double #7ba8a1;
+}
+
+.instructions{
+    padding:5px 30px 5px 23px;
+    background-color: white;
+    margin: 20px 0;
+    border: thick double #88a7a2;
+}
+
+.flex{
+    display: flex;
+    align-items: flex-start;
+}
+
+
+/* 
+* SummaryView
+*/
+
+.shoppLH{
+    font-size: 15px;
+}
+#ingredientAisleQuantity{
+    font-weight: bold;
+}
+
+#ingredientList{
+    table-layout: auto;
+    width: 100%;
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid rgb(221, 181, 230);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+
+
+.debug{ 
+      	border-style: solid;
+     }
+.flexParent{ 
+    display:flex; 
+    height: 100%; 
+    min-width: 320px;
+    flex-direction: row;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-style: double;
+    border-width: 5px;
+}
+.sidebar{  
+    background-color: hsl(294, 47%, 91%);
+    flex-direction: column;
+    padding:2px;
+    border-color: hsl(294, 47%, 91%);
+    border-style: double;
+    border-width: 10px;
+}
+.mainContent{ 
+    flex:1;
+    padding-left:2px;
+    background-color: hsl(294, 49%, 85%);
+ }
+
+    /* .mainContent  table tr:nth-of-type(2n+1){
+        background-color: #eee !important;
+    }
+    .mainContent table{
+        border: 1px solid black;
+            border-collapse: collapse;
+    }
+    .mainContent table td{
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 0;
+    } */
+
+
+    .mainWindow{
+        border-color: hsl(294, 49%, 85%);
+        border-style: double;
+        border-width: 10px;
+        background-color: hsl(294, 49%, 85%);
+    }
+    
+    @media(min-width:255px){
+        .flexParent{
+            display: flex; 
+            margin: 10px 10px 10pc 10px;
+        }
+    
+        .Sidebar{
+            width: 350px;
+        }
+    }
+    
+    @media(max-width:654px){
+        .flexParent{
+            display:flex;
+            flex-direction:column;      
+        }
+    }

@@ -1,0 +1,141 @@
+<html>
+ <head>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+<script src="js/views/summaryView.js" type="text/jsx"></script>
+<script src="js/views/sidebarView.js" type="text/jsx"></script>
+<script src="js/views/searchView.js" type="text/jsx"></script>
+<script src="js/dinnerModel.js" type="text/jsx"></script>
+<script src="js/views/DetailsView.js"  type="text/jsx"></script> 
+<script src="js/views/promiseNoData.js" type="text/jsx"></script>
+
+<script src="js/apiConfig.js"></script>
+<script src="js/dishSource.js"></script>
+
+</script>
+ <!-- DishSource.apiCall("/BlablaWrongEndpoint")
+     .then(data=> console.log(data)).catch(error=> console.log("there was a problem", error))  -->
+
+     <!-- DishSource.apiCall("/recipes/quickAnswer?"+new URLSearchParams({q:"How much vitamin C is in an orange?"}))
+     .then(data=> console.log(data)).catch(error=> console.log("there was a problem: ", error))
+      -->
+<!-- DishSource.searchDishes({type:"main course"}).then(console.log).catch(console.error)    -->
+
+<!-- DishSource.searchDishes({type:"main course"}).then(console.log).catch(console.error)  -->
+
+<!-- DishSource.getDishDetails(321567).then(console.log).catch(console.error) -->
+
+
+<!-- <script type="text/jsx">
+    DishSource.searchDishes({query:'french fries'}).then(results=>
+    ReactDOM.render(<SearchResultsView searchResults={results} dishChoice={id=> console.log("The user chose dish ", id)}  />, document.getElementById("app")));
+
+</script> -->
+
+<!-- <script type="text/jsx">
+        Promise.all(  [DishSource.getDishDetails(552767),  
+        DishSource.getDishDetails(185005), 
+        DishSource.getDishDetails(586940)])
+                    .then(values=> {
+                        ReactDOM.render(<SidebarView guests={5}  dishes={values}  removeDish={id=> console.log("user wants to remove dish with ID ", id)}  dishChoice={id=> console.log("user wants details of dish with ID ", id)} />, document.getElementById("app"))
+                    })
+     -->
+<!-- </script> -->
+<!-- <script src="./js/views/DetailsView.js"  type="text/jsx"></script> 
+
+ <script  type="text/jsx">
+    DishSource.getDishDetails(547775).then(details=> 
+    ReactDOM.render(<DetailsView dish={details} people={3} isDishInMenu={false}  
+            dishAdded={()=>console.log("User wants to add this dish! ", details)} />, document.getElementById("app"))
+    );
+</script>  -->
+
+ <!-- <script type="text/jsx">
+        Promise.all(  [DishSource.getDishDetails(552767),  
+        DishSource.getDishDetails(185005), 
+        DishSource.getDishDetails(586940)])
+                    .then(values=> {
+                        ReactDOM.render(<SidebarView guests={5}  dishes={values}  removeDish={id=> console.log("user wants to remove dish with ID ", id)}  dishChoice={id=> console.log("user wants details of dish with ID ", id)} />, document.getElementById("app"))
+                    })
+     
+ -->
+
+<!-- <script type="text/jsx">
+Promise.all(
+     [DishSource.getDishDetails(547775), 
+     DishSource.getDishDetails(492561),
+     DishSource.getDishDetails(492560)]
+).then(values=> ReactDOM.render(
+    <SummaryView persons={5} 
+    ingredients={getIngredients(values)} />
+                
+                  , document.getElementById("app"))) -->
+<!-- </script>               -->
+
+<!-- <script type="text/jsx">
+const myModel=new DinnerModel(5);
+Promise.all(
+     [DishSource.getDishDetails(523145), 
+     DishSource.getDishDetails(787321),
+     DishSource.getDishDetails(452179)]
+).then(values=> values.map(d=>myModel.addToMenu(d)))
+ .then(()=> { myModel.removeFromMenu({id:787321}); console.log(myModel); })
+
+</script>  -->
+
+<!-- <script type="text/jsx">
+
+   ReactDOM.render(promiseNoData("a promise", undefined, null),document.getElementById("app")) 
+
+</script> -->
+
+<script type="text/jsx">
+const searchPromise= DishSource.searchDishes({type:"main course", query:"pasta" });
+function SearchTest(){
+   const [data, setData]=React.useState(null);
+   const [error, setError]=React.useState(null);
+   React.useEffect(function(){ 
+       searchPromise.then(dt=> {setData(dt)})
+                    .catch(er=> {setError(er)})
+   }, []);
+   return promiseNoData('promise', data, error) ||
+    <SearchResultsView searchResults={data} dishChoice={console.log}/>
+} 
+
+const detailsPromise= DishSource.getDishDetails(523145);
+
+
+function DetailsTest(){ 
+    const [data, setData]=React.useState(null); 
+    const [error, setError]=React.useState(null); 
+    React.useEffect(function(){  
+        detailsPromise.then(dt=>{
+            setData(dt)
+        }) 
+        .catch(er=>{
+            setError(er)
+        }) 
+    }, []); 
+    return promiseNoData('promise', data, error) || 
+    <DetailsView dish={data} people={3} isDishInMenu={false}  
+                  dishAdded={()=>console.log("User wants to add this dish! ", data)} />
+} 
+
+ReactDOM.render(<div><SearchTest /><DetailsTest/></div>, document.getElementById("app"))
+
+
+
+</script>
+    </html>
